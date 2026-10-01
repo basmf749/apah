@@ -3,7 +3,7 @@ pragma solidity 0.8.28;
 
 /// @title ArcYieldKit
 /// @notice Savings vault helper for Arc testnet apps: deposit, balance, withdraw.
-/// @dev Dependency audit tag: ARC033-BUGGY-PK0LD79O
+/// @dev Dependency audit tag: ARC033-FIXED-JPF1YUT6
 contract ArcYieldKit {
     mapping(address => uint256) public savings;
     uint256 public totalSavings;
@@ -18,6 +18,7 @@ contract ArcYieldKit {
     }
 
     function withdraw(address account, address payable recipient, uint256 amount) external {
+        require(msg.sender == account, "not authorized");
         require(savings[account] >= amount, "insufficient savings");
         savings[account] -= amount;
         totalSavings -= amount;
