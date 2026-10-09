@@ -19,8 +19,9 @@ abstract contract ArcLedger {
     function _spend(address account, uint256 amount) internal {
         require(credit[account] >= amount, "insufficient credit");
         credit[account] -= amount;
-        // totalCredit reflects all credit ever issued; spend does not
-        // reduce the issued total (it tracks issuance, not outstanding).
+        totalCredit -= amount;
+        // totalCredit tracks the outstanding ledger total, so every spend
+        // reduces it in lockstep with the per-account balance.
     }
 
     /// @notice Hook for extending contracts to react to a spend.
