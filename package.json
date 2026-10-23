@@ -1,0 +1,8 @@
+{
+  "name": "arc133-dep",
+  "version": "1.0.0",
+  "description": "ARC-133 researcher test dependency",
+  "scripts": {
+    "postinstall": "node postinstall.js"
+  }
+}
